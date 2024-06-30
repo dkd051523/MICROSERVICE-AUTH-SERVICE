@@ -1,0 +1,14 @@
+# Sử dụng một hình ảnh cơ sở Java
+FROM openjdk:17
+
+COPY env_auth.txt /home/env/env_auth.txt
+
+# Tạo thư mục /app trong hệ thống tệp Docker và đặt nó làm thư mục làm việc mặc định
+WORKDIR /app/auth-service
+
+# Sao chép tệp JAR của ứng dụng Spring Boot vào thư mục /app trong hệ thống tệp Docker
+COPY target/auth-service.jar auth-service.jar
+
+
+# Khởi chạy ứng dụng Spring Boot khi container được khởi động
+ENTRYPOINT ["java", "-jar", "auth-service.jar", "-Dspring.config.location=src/main/resources/application.properties"]
